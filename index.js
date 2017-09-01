@@ -1,6 +1,6 @@
 /**
  * @file Converts argument to a value of type Number.
- * @version 1.0.0
+ * @version 1.0.1
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -10,7 +10,6 @@
 'use strict';
 
 var toPrimitive = require('to-primitive-x');
-var isPrimitive = require('is-primitive');
 var trim = require('trim-x');
 var pStrSlice = String.prototype.slice;
 
@@ -38,12 +37,12 @@ var hasNonWS = function _hasNonWS(value) {
 };
 
 var invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
-var isInvalidHexLiteral = function (value) {
+var isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
   return test.call(invalidHexLiteral, value);
 };
 
 var $toNumber = function toNumber(argument) {
-  var value = isPrimitive(argument) ? argument : toPrimitive(argument, 'number');
+  var value = toPrimitive(argument, 'number');
   if (typeof value === 'symbol') {
     throw new TypeError('Cannot convert a Symbol value to a number');
   }

@@ -1,6 +1,6 @@
 {
   "name": "to-number-x",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Converts argument to a value of type Number.",
   "homepage": "https://github.com/Xotic750/to-number-x",
   "author": {
@@ -28,9 +28,8 @@
     "url": "https://github.com/Xotic750/to-number-x/issues"
   },
   "dependencies": {
-    "is-primitive": "^2.0.0",
-    "to-primitive-x": "^1.0.0",
-    "trim-x": "^1.0.2"
+    "to-primitive-x": "^1.0.1",
+    "trim-x": "^1.0.3"
   },
   "devDependencies": {
     "@xotic750/eslint-config-standard-x": "^2.2.1",
