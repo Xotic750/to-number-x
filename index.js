@@ -1,6 +1,6 @@
 /**
  * @file Converts argument to a value of type Number.
- * @version 1.0.1
+ * @version 1.1.0
  * @author Xotic750 <Xotic750@gmail.com>
  * @copyright  Xotic750
  * @license {@link <https://opensource.org/licenses/MIT> MIT}
@@ -42,7 +42,7 @@ var isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
 };
 
 var $toNumber = function toNumber(argument) {
-  var value = toPrimitive(argument, 'number');
+  var value = toPrimitive(argument, Number);
   if (typeof value === 'symbol') {
     throw new TypeError('Cannot convert a Symbol value to a number');
   }

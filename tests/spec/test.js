@@ -166,4 +166,10 @@ describe('toNumber', function () {
       expect(Number.isNaN(toNumber(nonWS + 0 + nonWS))).toBe(true, 'non-whitespace ' + desc + ' not trimmed');
     });
   });
+
+  it('works with Dates', function () {
+    expect(toNumber(new Date(0))).toBe(0);
+    var ms = 1504449076121;
+    expect(toNumber(new Date(ms))).toBe(ms);
+  });
 });
