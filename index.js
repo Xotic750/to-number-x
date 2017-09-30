@@ -43,9 +43,9 @@ var isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
 /**
  * This method converts argument to a value of type Number.
 
- * @param {*} argument The argument to convert to a number.
- * @throws {TypeError} If argument is a Symbol or not coercible.
- * @return {*} The argument converted to a number.
+ * @param {*} argument - The argument to convert to a number.
+ * @throws {TypeError} - If argument is a Symbol or not coercible.
+ * @returns {*} The argument converted to a number.
  * @example
  * var toNumber = require('to-number-x');
  *

@@ -36,7 +36,7 @@ This method converts argument to a value of type Number.
 **Returns**: <code>\*</code> - The argument converted to a number.  
 **Throws**:
 
-- <code>TypeError</code> If argument is a Symbol or not coercible.
+- <code>TypeError</code> - If argument is a Symbol or not coercible.
 
 
 | Param | Type | Description |
