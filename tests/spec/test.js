@@ -21,6 +21,9 @@ if (typeof module === 'object' && module.exports) {
   toNumber = returnExports;
 }
 
+var hasSymbol = typeof Symbol === 'function' && typeof Symbol('') === 'symbol';
+var ifSymbolIt = hasSymbol ? it : xit;
+
 var coercibleObject = {
   toString: function () {
     return 42;
@@ -74,6 +77,7 @@ describe('toNumber', function () {
     expect(toNumber(null)).toBe(0, 'null coerces to +0');
     expect(toNumber(false)).toBe(0, 'false coerces to +0');
     expect(toNumber(true)).toBe(1, 'true coerces to 1');
+    expect(toNumber(' 1 ')).toBe(1, '` 1 `` coerces to 1');
   });
 
   it('numbers', function () {
@@ -143,6 +147,22 @@ describe('toNumber', function () {
     }))).toBe(true, 'Object that toStrings to 0o118 is NaN');
   });
 
+  it('hex literals', function () {
+    expect(toNumber('0xF')).toBe(15, '0xF is 15');
+    expect(toNumber({
+      toString: function () {
+        return '0xA';
+      }
+    })).toBe(10, 'Object that toStrings to 0xA is 1');
+
+    expect(Number.isNaN(toNumber('0xG'))).toBe(true, '0xG is NaN');
+    expect(Number.isNaN(toNumber({
+      toString: function () {
+        return '0x11G';
+      }
+    }))).toBe(true, 'Object that toStrings to 0x11G is NaN');
+  });
+
   it('signed hex numbers', function () {
     expect(Number.isNaN(toNumber('-0xF'))).toBe(true, '-0xF is NaN');
     expect(Number.isNaN(toNumber(' -0xF '))).toBe(true, 'space-padded -0xF is NaN');
@@ -171,5 +191,23 @@ describe('toNumber', function () {
     expect(toNumber(new Date(0))).toBe(0);
     var ms = 1504449076121;
     expect(toNumber(new Date(ms))).toBe(ms);
+  });
+
+  it('should throw if target is not coercible', function () {
+    expect(function () {
+      toNumber(Object.create(null));
+    }).toThrow();
+  });
+
+  ifSymbolIt('should throw for Symbol', function () {
+    var sym = Symbol('foo');
+    expect(function () {
+      toNumber(sym);
+    }).toThrow();
+
+    var symObj = Object(sym);
+    expect(function () {
+      toNumber(Object(symObj));
+    }).toThrow();
   });
 });
