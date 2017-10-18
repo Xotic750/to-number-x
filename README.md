@@ -23,16 +23,28 @@
 ## to-number-x
 Converts argument to a value of type Number.
 
-**Version**: 1.2.0  
+**Version**: 2.0.0  
 **Author**: Xotic750 <Xotic750@gmail.com>  
 **License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
 **Copyright**: Xotic750  
-<a name="exp_module_to-number-x--module.exports"></a>
 
-### `module.exports(argument)` ⇒ <code>\*</code> ⏏
-This method converts argument to a value of type Number.
+* [to-number-x](#module_to-number-x)
+    * [`.toNumber`](#module_to-number-x.toNumber)
+    * [`.toNumber2016`](#module_to-number-x.toNumber2016) ⇒ <code>\*</code>
+    * [`.toNumber2018`](#module_to-number-x.toNumber2018) ⇒ <code>\*</code>
 
-**Kind**: Exported function  
+<a name="module_to-number-x.toNumber"></a>
+
+### `to-number-x.toNumber`
+reference to toNumber2018.
+
+**Kind**: static property of [<code>to-number-x</code>](#module_to-number-x)  
+<a name="module_to-number-x.toNumber2016"></a>
+
+### `to-number-x.toNumber2016` ⇒ <code>\*</code>
+This method converts argument to a value of type Number. (ES2016)
+
+**Kind**: static property of [<code>to-number-x</code>](#module_to-number-x)  
 **Returns**: <code>\*</code> - The argument converted to a number.  
 **Throws**:
 
@@ -45,7 +57,39 @@ This method converts argument to a value of type Number.
 
 **Example**  
 ```js
-var toNumber = require('to-number-x');
+var toNumber = require('to-number-x').toNumber2016;
+
+toNumber('1'); // 1
+toNumber(null); // 0
+toNumber(true); // 1
+toNumber('0o10'); // 8
+toNumber('0b10'); // 2
+toNumber('0xF'); // 16
+
+toNumber(' 1 '); // 1
+
+toNumber(Symbol('')) // TypeError
+toNumber(Object.create(null)) // TypeError
+```
+<a name="module_to-number-x.toNumber2018"></a>
+
+### `to-number-x.toNumber2018` ⇒ <code>\*</code>
+This method converts argument to a value of type Number. (ES2018)
+
+**Kind**: static property of [<code>to-number-x</code>](#module_to-number-x)  
+**Returns**: <code>\*</code> - The argument converted to a number.  
+**Throws**:
+
+- <code>TypeError</code> - If argument is a Symbol or not coercible.
+
+
+| Param | Type | Description |
+| --- | --- | --- |
+| argument | <code>\*</code> | The argument to convert to a number. |
+
+**Example**  
+```js
+var toNumber = require('to-number-x').toNumber2018;
 
 toNumber('1'); // 1
 toNumber(null); // 0
