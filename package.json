@@ -23,7 +23,7 @@
   "module": "dist/to-number-x.esm.js",
   "main": "dist/to-number-x.js",
   "scripts": {
-    "build:esm": "mkdirp dist && babel --env-name esm src/to-number-x.js -o dist/to-number-x.esm.js",
+    "build:esm": "mkdirp dist && babel -s true --env-name esm src/to-number-x.js -o dist/to-number-x.esm.js",
     "build:base": "webpack --bail --progress --profile --colors",
     "build": "npm run build:esm && cross-env NODE_ENV=production npm run build:base --",
     "build:dev": "npm run build:base --",

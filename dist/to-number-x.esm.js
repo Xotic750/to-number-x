@@ -119,3 +119,5 @@ export default function toNumber2018(argument) {
 
   return castNumber(value);
 }
+
+//# sourceMappingURL=to-number-x.esm.js.map

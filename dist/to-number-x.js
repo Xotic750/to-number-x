@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-11T18:15:53.997Z",
+  "date": "2019-07-11T18:45:11.894Z",
   "describe": "",
   "description": "Converts argument to a value of type Number.",
   "file": "to-number-x.js",
-  "hash": "8c5e51c99eace9c5ce6f",
+  "hash": "c2876ef942a750484ac3",
   "license": "MIT",
   "version": "3.0.2"
 }
@@ -1363,6 +1363,7 @@ function toNumber2018(argument) {
   return to_number_x_esm_castNumber(value);
 }
 
+//# sourceMappingURL=to-number-x.esm.js.map
 
 /***/ })
 /******/ ]);
