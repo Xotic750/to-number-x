@@ -216,14 +216,15 @@ module.exports = function generateConfig(env) {
       new webpack.BannerPlugin({
         banner: `/*!\n${JSON.stringify(
           {
-            copywrite: `${PACKAGE.copyright}`,
-            date: `${NOW}`,
-            describe: `${DESCRIBE}`,
-            description: `${PACKAGE.description}`,
+            author: PACKAGE.author.name,
+            copywrite: PACKAGE.copyright,
+            date: NOW,
+            describe: DESCRIBE,
+            description: PACKAGE.description,
             file: '[file]',
             hash: '[hash]',
-            license: `${PACKAGE.license}`,
-            version: `${PACKAGE.version}`,
+            license: PACKAGE.license,
+            version: PACKAGE.version,
           },
           null,
           2,
@@ -251,6 +252,7 @@ module.exports = function generateConfig(env) {
         src: path.resolve(__dirname, './src'),
       },
       extensions: ['.js', '.json'],
+      mainFields: ['module', 'browser', 'main'],
     },
   };
 

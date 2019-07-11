@@ -1,6 +1,6 @@
 {
   "name": "to-number-x",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Converts argument to a value of type Number.",
   "homepage": "https://github.com/Xotic750/to-number-x",
   "author": {
@@ -20,11 +20,12 @@
     "src"
   ],
   "browser": "dist/to-number-x.min.js",
-  "module": "src/to-number-x.js",
+  "module": "dist/to-number-x.esm.js",
   "main": "dist/to-number-x.js",
   "scripts": {
+    "build:esm": "mkdirp dist && babel --env-name esm src/to-number-x.js -o dist/to-number-x.esm.js",
     "build:base": "webpack --bail --progress --profile --colors",
-    "build": "cross-env NODE_ENV=production npm run build:base --",
+    "build": "npm run build:esm && cross-env NODE_ENV=production npm run build:base --",
     "build:dev": "npm run build:base --",
     "clean": "rimraf dist && npm run clean:coverage",
     "clean:coverage": "rimraf __tests__/coverage",
@@ -48,6 +49,7 @@
     "url": "https://github.com/Xotic750/to-number-x/issues"
   },
   "dependencies": {
+    "is-symbol": "^1.0.2",
     "nan-x": "^2.0.1",
     "parse-int-x": "^3.0.0",
     "to-primitive-x": "^2.0.1",
@@ -98,6 +100,7 @@
     "jest-css": "^1.0.1",
     "jest-file": "^1.0.0",
     "lodash": "^4.17.13",
+    "mkdirp": "^0.5.1",
     "prettier": "=1.14.3",
     "rimraf": "^2.6.3",
     "semver": "^6.2.0",
