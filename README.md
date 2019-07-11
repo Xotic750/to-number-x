@@ -21,27 +21,16 @@
 <a name="module_to-number-x"></a>
 
 ## to-number-x
+
 Converts argument to a value of type Number.
 
-**Version**: 2.0.0  
-**Author**: Xotic750 <Xotic750@gmail.com>  
-**License**: [MIT](&lt;https://opensource.org/licenses/MIT&gt;)  
-**Copyright**: Xotic750  
-
-* [to-number-x](#module_to-number-x)
-    * [`.toNumber`](#module_to-number-x.toNumber)
-    * [`.toNumber2016`](#module_to-number-x.toNumber2016) ⇒ <code>\*</code>
-    * [`.toNumber2018`](#module_to-number-x.toNumber2018) ⇒ <code>\*</code>
+- [to-number-x](#module_to-number-x)
+  - [`.toNumber2016`](#module_to-number-x.toNumber2016) ⇒ <code>\*</code>
 
 <a name="module_to-number-x.toNumber"></a>
 
-### `to-number-x.toNumber`
-reference to toNumber2018.
-
-**Kind**: static property of [<code>to-number-x</code>](#module_to-number-x)  
-<a name="module_to-number-x.toNumber2016"></a>
-
 ### `to-number-x.toNumber2016` ⇒ <code>\*</code>
+
 This method converts argument to a value of type Number. (ES2016)
 
 **Kind**: static property of [<code>to-number-x</code>](#module_to-number-x)  
@@ -50,30 +39,32 @@ This method converts argument to a value of type Number. (ES2016)
 
 - <code>TypeError</code> - If argument is a Symbol or not coercible.
 
-
-| Param | Type | Description |
-| --- | --- | --- |
+| Param    | Type            | Description                          |
+| -------- | --------------- | ------------------------------------ |
 | argument | <code>\*</code> | The argument to convert to a number. |
 
-**Example**  
+**Example**
+
 ```js
-var toNumber = require('to-number-x').toNumber2016;
+import {toNumber2016} from 'to-number-x';
 
-toNumber('1'); // 1
-toNumber(null); // 0
-toNumber(true); // 1
-toNumber('0o10'); // 8
-toNumber('0b10'); // 2
-toNumber('0xF'); // 16
+console.log(toNumber2016('1')); // 1
+console.log(toNumber2016(null)); // 0
+console.log(toNumber2016(true)); // 1
+console.log(toNumber2016('0o10')); // 8
+console.log(toNumber2016('0b10')); // 2
+console.log(toNumber2016('0xF')); // 16
 
-toNumber(' 1 '); // 1
+console.log(toNumber2016(' 1 ')); // 1
 
-toNumber(Symbol('')) // TypeError
-toNumber(Object.create(null)) // TypeError
+console.log(toNumber2016(Symbol(''))); // TypeError
+console.log(toNumber2016(Object.create(null))); // TypeError
 ```
-<a name="module_to-number-x.toNumber2018"></a>
 
-### `to-number-x.toNumber2018` ⇒ <code>\*</code>
+<a name="module_to-number-x"></a>
+
+### `to-number-x` ⇒ <code>\*</code>
+
 This method converts argument to a value of type Number. (ES2018)
 
 **Kind**: static property of [<code>to-number-x</code>](#module_to-number-x)  
@@ -82,24 +73,24 @@ This method converts argument to a value of type Number. (ES2018)
 
 - <code>TypeError</code> - If argument is a Symbol or not coercible.
 
-
-| Param | Type | Description |
-| --- | --- | --- |
+| Param    | Type            | Description                          |
+| -------- | --------------- | ------------------------------------ |
 | argument | <code>\*</code> | The argument to convert to a number. |
 
-**Example**  
+**Example**
+
 ```js
-var toNumber = require('to-number-x').toNumber2018;
+import toNumber from 'to-number-x';
 
-toNumber('1'); // 1
-toNumber(null); // 0
-toNumber(true); // 1
-toNumber('0o10'); // 8
-toNumber('0b10'); // 2
-toNumber('0xF'); // 16
+console.log(toNumber('1')); // 1
+console.log(toNumber(null)); // 0
+console.log(toNumber(true)); // 1
+console.log(toNumber('0o10')); // 8
+console.log(toNumber('0b10')); // 2
+console.log(toNumber('0xF')); // 16
 
-toNumber(' 1 '); // 1
+console.log(toNumber(' 1 ')); // 1
 
-toNumber(Symbol('')) // TypeError
-toNumber(Object.create(null)) // TypeError
+console.log(toNumber(Symbol(''))); // TypeError
+console.log(toNumber(Object.create(null))); // TypeError
 ```
