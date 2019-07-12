@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-11T18:45:11.894Z",
+  "date": "2019-07-12T15:35:44.142Z",
   "describe": "",
   "description": "Converts argument to a value of type Number.",
   "file": "to-number-x.js",
-  "hash": "c2876ef942a750484ac3",
+  "hash": "3d1c7f3309a9c53be22c",
   "license": "MIT",
-  "version": "3.0.2"
+  "version": "3.0.3"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -120,7 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -131,7 +131,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 var toStr = Object.prototype.toString;
-var hasSymbols = __webpack_require__(4)();
+var hasSymbols = __webpack_require__(3)();
 
 if (hasSymbols) {
 	var symToStr = Symbol.prototype.toString;
@@ -189,34 +189,6 @@ module.exports = function isPrimitive(val) {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-/**
- * This method attempts to invoke the function, returning either the result or
- * the caught error object. Any additional arguments are provided to the
- * function when it's invoked.
- *
- * @param {Function} fn - The function to attempt.
- * @param {...*} [args] - The arguments to invoke the function with.
- * @returns {object} Returns an object of the result.
- */
-module.exports = function attempt(fn, ...args) {
-  try {
-    return {
-      threw: false,
-      value: fn.apply(this, args),
-    };
-  } catch (e) {
-    return {
-      threw: true,
-      value: e,
-    };
-  }
-};
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -243,14 +215,14 @@ module.exports = function isDateObject(value) {
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
 var origSymbol = global.Symbol;
-var hasSymbolSham = __webpack_require__(6);
+var hasSymbolSham = __webpack_require__(5);
 
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
@@ -261,10 +233,10 @@ module.exports = function hasNativeSymbols() {
 	return hasSymbolSham();
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 var g;
@@ -290,7 +262,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -339,7 +311,7 @@ module.exports = function hasSymbols() {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -349,30 +321,70 @@ __webpack_require__.r(__webpack_exports__);
 var is_symbol = __webpack_require__(0);
 var is_symbol_default = /*#__PURE__*/__webpack_require__.n(is_symbol);
 
-// CONCATENATED MODULE: ./node_modules/has-symbol-support-x/src/has-symbol-support-x.js
+// CONCATENATED MODULE: ./node_modules/attempt-x/dist/attempt-x.esm.js
+/**
+ * This method attempts to invoke the function, returning either the result or
+ * the caught error object. Any additional arguments are provided to the
+ * function when it's invoked.
+ *
+ * @param {Function} [fn] - The function to attempt.
+ * @param {...*} [args] - The arguments to invoke the function with.
+ * @returns {object} Returns an object of the result.
+ */
+function attempt(fn) {
+  try {
+    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    return {
+      threw: false,
+
+      /* eslint-disable-next-line babel/no-invalid-this */
+      value: fn.apply(this, args)
+    };
+  } catch (e) {
+    return {
+      threw: true,
+      value: e
+    };
+  }
+}
+;
+
+
+// CONCATENATED MODULE: ./node_modules/has-symbol-support-x/dist/has-symbol-support-x.esm.js
+var _this = undefined;
+
+function _newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
+
+
+
+var hasSymbolSupport = attempt(function () {
+  _newArrowCheck(this, _this);
+
+  /* eslint-disable-next-line compat/compat */
+  return typeof Symbol === 'function' && is_symbol_default()(Symbol(''));
+}.bind(undefined));
 /**
  * Indicates if `Symbol`exists and creates the correct type.
  * `true`, if it exists and creates the correct type, otherwise `false`.
  *
  * @type boolean
  */
-/* harmony default export */ var has_symbol_support_x = (typeof Symbol === 'function' &&
-  /* eslint-disable-next-line compat/compat */
-  typeof Symbol('') === 'symbol');
+
+/* harmony default export */ var has_symbol_support_x_esm = (hasSymbolSupport.threw === false && hasSymbolSupport.value === true);
+
 
 // EXTERNAL MODULE: ./node_modules/is-primitive/index.js
 var is_primitive = __webpack_require__(1);
 var is_primitive_default = /*#__PURE__*/__webpack_require__.n(is_primitive);
 
 // EXTERNAL MODULE: ./node_modules/is-date-object/index.js
-var is_date_object = __webpack_require__(3);
+var is_date_object = __webpack_require__(2);
 var is_date_object_default = /*#__PURE__*/__webpack_require__.n(is_date_object);
 
-// EXTERNAL MODULE: ./node_modules/attempt-x/src/attempt-x.js
-var attempt_x = __webpack_require__(2);
-var attempt_x_default = /*#__PURE__*/__webpack_require__.n(attempt_x);
-
-// CONCATENATED MODULE: ./node_modules/to-boolean-x/src/to-boolean-x.js
+// CONCATENATED MODULE: ./node_modules/to-boolean-x/dist/to-boolean-x.esm.js
 /**
  * The abstract operation ToBoolean converts argument to a value of type Boolean.
  *
@@ -383,8 +395,8 @@ function toBoolean(value) {
   return !!value;
 }
 
-// CONCATENATED MODULE: ./node_modules/is-falsey-x/src/is-falsey-x.js
 
+// CONCATENATED MODULE: ./node_modules/is-falsey-x/dist/is-falsey-x.esm.js
 
 /**
  * This method tests if a given value is falsey.
@@ -392,13 +404,14 @@ function toBoolean(value) {
  * @param {*} [value] - The value to test.
  * @returns {boolean} `true` if the value is falsey: otherwise `false`.
  */
+
 function isFalsey(value) {
-  return toBoolean(value) === false;
+  return !toBoolean(value);
 }
 
-// CONCATENATED MODULE: ./node_modules/to-string-tag-x/src/to-string-tag-x.js
-const nativeObjectToString = {}.toString;
 
+// CONCATENATED MODULE: ./node_modules/to-string-tag-x/dist/to-string-tag-x.esm.js
+var nativeObjectToString = {}.toString;
 /**
  * The `toStringTag` method returns "[object type]", where type is the
  * object type.
@@ -406,6 +419,7 @@ const nativeObjectToString = {}.toString;
  * @param {*} [value] - The object of which to get the object type string.
  * @returns {string} The object type string.
  */
+
 function toStringTag(value) {
   if (value === null) {
     return '[object Null]';
@@ -418,7 +432,8 @@ function toStringTag(value) {
   return nativeObjectToString.call(value);
 }
 
-// CONCATENATED MODULE: ./node_modules/has-to-string-tag-x/src/has-to-string-tag-x.js
+
+// CONCATENATED MODULE: ./node_modules/has-to-string-tag-x/dist/has-to-string-tag-x.esm.js
 
 
 /**
@@ -427,11 +442,13 @@ function toStringTag(value) {
  *
  * @type boolean
  */
-/* harmony default export */ var has_to_string_tag_x = (has_symbol_support_x &&
-  /* eslint-disable-next-line compat/compat */
-  typeof Symbol.toStringTag === 'symbol');
 
-// CONCATENATED MODULE: ./node_modules/is-nil-x/src/is-nil-x.js
+/* harmony default export */ var has_to_string_tag_x_esm = (has_symbol_support_x_esm &&
+/* eslint-disable-next-line compat/compat */
+is_symbol_default()(Symbol.toStringTag));
+
+
+// CONCATENATED MODULE: ./node_modules/is-nil-x/dist/is-nil-x.esm.js
 /**
  * Checks if `value` is `null` or `undefined`.
  *
@@ -443,8 +460,8 @@ function isNil(value) {
   return value === null || typeof value === 'undefined';
 }
 
-// CONCATENATED MODULE: ./node_modules/require-object-coercible-x/src/require-object-coercible-x.js
 
+// CONCATENATED MODULE: ./node_modules/require-object-coercible-x/dist/require-object-coercible-x.esm.js
 
 /**
  * The abstract operation RequireObjectCoercible throws an error if argument
@@ -454,17 +471,20 @@ function isNil(value) {
  * @throws {TypeError} If `value` is a `null` or `undefined`.
  * @returns {string} The `value`.
  */
-function RequireObjectCoercible(value) {
+
+function requireObjectCoercible(value) {
   if (isNil(value)) {
-    throw new TypeError(`Cannot call method on ${value}`);
+    throw new TypeError("Cannot call method on ".concat(value));
   }
 
   return value;
 }
 
-// CONCATENATED MODULE: ./node_modules/to-string-x/src/to-string-x.js
 
+// CONCATENATED MODULE: ./node_modules/to-string-x/dist/to-string-x.esm.js
 
+var ERROR_MESSAGE = 'Cannot convert a Symbol value to a string';
+var castString = ERROR_MESSAGE.constructor;
 /**
  * The abstract operation ToString converts argument to a value of type String.
  *
@@ -472,16 +492,17 @@ function RequireObjectCoercible(value) {
  * @throws {TypeError} If `value` is a Symbol.
  * @returns {string} The converted value.
  */
+
 function ToString(value) {
   if (is_symbol_default()(value)) {
-    throw new TypeError('Cannot convert a Symbol value to a string');
+    throw new TypeError(ERROR_MESSAGE);
   }
 
-  return ''.constructor(value);
+  return castString(value);
 }
 
-// CONCATENATED MODULE: ./node_modules/require-coercible-to-string-x/src/require-coercible-to-string-x.js
 
+// CONCATENATED MODULE: ./node_modules/require-coercible-to-string-x/dist/require-coercible-to-string-x.esm.js
 
 
 /**
@@ -491,11 +512,13 @@ function ToString(value) {
  * @throws {TypeError} If value is null or undefined.
  * @returns {string} The value as a string.
  */
+
 function requireCoercibleToString(value) {
-  return ToString(RequireObjectCoercible(value));
+  return ToString(requireObjectCoercible(value));
 }
 
-// CONCATENATED MODULE: ./node_modules/white-space-x/src/white-space-x.js
+
+// CONCATENATED MODULE: ./node_modules/white-space-x/dist/white-space-x.esm.js
 /**
  * A record of a white space character.
  *
@@ -516,467 +539,451 @@ function requireCoercibleToString(value) {
  *
  * @type Array.<CharRecord>
  */
-const list = [
-  {
-    code: 0x0009,
-    description: 'Tab',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u0009',
-  },
-  {
-    code: 0x000a,
-    description: 'Line Feed',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u000a',
-  },
-  {
-    code: 0x000b,
-    description: 'Vertical Tab',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u000b',
-  },
-  {
-    code: 0x000c,
-    description: 'Form Feed',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u000c',
-  },
-  {
-    code: 0x000d,
-    description: 'Carriage Return',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u000d',
-  },
-  {
-    code: 0x0020,
-    description: 'Space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u0020',
-  },
-  /*
-  {
-    code: 0x0085,
-    description: 'Next line',
-    es5: false,
-    es2015: false,
-    es2016: false,
-    es2017: false,
-    es2018: false,
-    string: '\u0085'
-  }
-  */
-  {
-    code: 0x00a0,
-    description: 'No-break space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u00a0',
-  },
-  {
-    code: 0x1680,
-    description: 'Ogham space mark',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u1680',
-  },
-  {
-    code: 0x180e,
-    description: 'Mongolian vowel separator',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: false,
-    es2018: false,
-    string: '\u180e',
-  },
-  {
-    code: 0x2000,
-    description: 'En quad',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2000',
-  },
-  {
-    code: 0x2001,
-    description: 'Em quad',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2001',
-  },
-  {
-    code: 0x2002,
-    description: 'En space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2002',
-  },
-  {
-    code: 0x2003,
-    description: 'Em space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2003',
-  },
-  {
-    code: 0x2004,
-    description: 'Three-per-em space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2004',
-  },
-  {
-    code: 0x2005,
-    description: 'Four-per-em space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2005',
-  },
-  {
-    code: 0x2006,
-    description: 'Six-per-em space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2006',
-  },
-  {
-    code: 0x2007,
-    description: 'Figure space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2007',
-  },
-  {
-    code: 0x2008,
-    description: 'Punctuation space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2008',
-  },
-  {
-    code: 0x2009,
-    description: 'Thin space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2009',
-  },
-  {
-    code: 0x200a,
-    description: 'Hair space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u200a',
-  },
-  /*
-  {
-    code: 0x200b,
-    description: 'Zero width space',
-    es5: false,
-    es2015: false,
-    es2016: false,
-    es2017: false,
-    es2018: false,
-    string: '\u200b'
-  },
-  */
-  {
-    code: 0x2028,
-    description: 'Line separator',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2028',
-  },
-  {
-    code: 0x2029,
-    description: 'Paragraph separator',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u2029',
-  },
-  {
-    code: 0x202f,
-    description: 'Narrow no-break space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u202f',
-  },
-  {
-    code: 0x205f,
-    description: 'Medium mathematical space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u205f',
-  },
-  {
-    code: 0x3000,
-    description: 'Ideographic space',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\u3000',
-  },
-  {
-    code: 0xfeff,
-    description: 'Byte Order Mark',
-    es5: true,
-    es2015: true,
-    es2016: true,
-    es2017: true,
-    es2018: true,
-    string: '\ufeff',
-  },
-];
-
+var list = [{
+  code: 0x0009,
+  description: 'Tab',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\t"
+}, {
+  code: 0x000a,
+  description: 'Line Feed',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\n"
+}, {
+  code: 0x000b,
+  description: 'Vertical Tab',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\x0B"
+}, {
+  code: 0x000c,
+  description: 'Form Feed',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\f"
+}, {
+  code: 0x000d,
+  description: 'Carriage Return',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\r"
+}, {
+  code: 0x0020,
+  description: 'Space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: " "
+},
+/*
+{
+  code: 0x0085,
+  description: 'Next line',
+  es5: false,
+  es2015: false,
+  es2016: false,
+  es2017: false,
+  es2018: false,
+  string: '\u0085'
+}
+*/
+{
+  code: 0x00a0,
+  description: 'No-break space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\xA0"
+}, {
+  code: 0x1680,
+  description: 'Ogham space mark',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u1680"
+}, {
+  code: 0x180e,
+  description: 'Mongolian vowel separator',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: false,
+  es2018: false,
+  string: "\u180E"
+}, {
+  code: 0x2000,
+  description: 'En quad',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2000"
+}, {
+  code: 0x2001,
+  description: 'Em quad',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2001"
+}, {
+  code: 0x2002,
+  description: 'En space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2002"
+}, {
+  code: 0x2003,
+  description: 'Em space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2003"
+}, {
+  code: 0x2004,
+  description: 'Three-per-em space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2004"
+}, {
+  code: 0x2005,
+  description: 'Four-per-em space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2005"
+}, {
+  code: 0x2006,
+  description: 'Six-per-em space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2006"
+}, {
+  code: 0x2007,
+  description: 'Figure space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2007"
+}, {
+  code: 0x2008,
+  description: 'Punctuation space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2008"
+}, {
+  code: 0x2009,
+  description: 'Thin space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2009"
+}, {
+  code: 0x200a,
+  description: 'Hair space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u200A"
+},
+/*
+{
+  code: 0x200b,
+  description: 'Zero width space',
+  es5: false,
+  es2015: false,
+  es2016: false,
+  es2017: false,
+  es2018: false,
+  string: '\u200b'
+},
+*/
+{
+  code: 0x2028,
+  description: 'Line separator',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2028"
+}, {
+  code: 0x2029,
+  description: 'Paragraph separator',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u2029"
+}, {
+  code: 0x202f,
+  description: 'Narrow no-break space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u202F"
+}, {
+  code: 0x205f,
+  description: 'Medium mathematical space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u205F"
+}, {
+  code: 0x3000,
+  description: 'Ideographic space',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\u3000"
+}, {
+  code: 0xfeff,
+  description: 'Byte Order Mark',
+  es5: true,
+  es2015: true,
+  es2016: true,
+  es2017: true,
+  es2018: true,
+  string: "\uFEFF"
+}];
 /**
  * A string of the ES5 to ES2016 whitespace characters.
  *
  * @type string
  */
-let stringES2016 = '';
 
+var stringES2016 = '';
 /**
  * A string of the ES2017 to ES2018 whitespace characters.
  *
  * @type string
  */
-let stringES2018 = '';
-const {length: white_space_x_length} = list;
-for (let i = 0; i < white_space_x_length; i += 1) {
-  if (list[i].es2016) {
-    stringES2016 += list[i].string;
+
+var stringES2018 = '';
+var white_space_x_esm_length = list.length;
+
+for (var white_space_x_esm_i = 0; white_space_x_esm_i < white_space_x_esm_length; white_space_x_esm_i += 1) {
+  if (list[white_space_x_esm_i].es2016) {
+    stringES2016 += list[white_space_x_esm_i].string;
   }
 
-  if (list[i].es2018) {
-    stringES2018 += list[i].string;
+  if (list[white_space_x_esm_i].es2018) {
+    stringES2018 += list[white_space_x_esm_i].string;
   }
 }
 
-const string2018 = stringES2018;
-
-/* harmony default export */ var white_space_x = (string2018);
-const string2016 = stringES2016;
-
-// CONCATENATED MODULE: ./node_modules/trim-left-x/src/trim-left-x.js
+var string2018 = stringES2018;
+/* harmony default export */ var white_space_x_esm = (string2018);
+var string2016 = stringES2016;
 
 
+// CONCATENATED MODULE: ./node_modules/trim-left-x/dist/trim-left-x.esm.js
 
-const RegExpCtr = /none/.constructor;
-const reLeft2016 = new RegExpCtr(`^[${string2016}]+`);
-const reLeft = new RegExpCtr(`^[${white_space_x}]+`);
-const {replace} = '';
 
+var EMPTY_STRING = '';
+var RegExpCtr = /none/.constructor;
+var reLeft2016 = new RegExpCtr("^[".concat(string2016, "]+"));
+var reLeft = new RegExpCtr("^[".concat(white_space_x_esm, "]+"));
+var replace = EMPTY_STRING.replace;
 /**
  * This method removes whitespace from the left end of a string. (ES2016).
  *
- * @param {string} string - The string to trim the left end whitespace from.
+ * @param {string} [string] - The string to trim the left end whitespace from.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @returns {string} The left trimmed string.
  */
-function trimLeft2016(string) {
-  return replace.call(requireCoercibleToString(string), reLeft2016, '');
-}
 
+function trimLeft2016(string) {
+  return replace.call(requireCoercibleToString(string), reLeft2016, EMPTY_STRING);
+}
 /**
  * This method removes whitespace from the left end of a string. (ES2018).
  *
- * @param {string} string - The string to trim the left end whitespace from.
+ * @param {string} [string] - The string to trim the left end whitespace from.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @returns {string} The left trimmed string.
  */
+
 function trimLeft2018(string) {
-  return replace.call(requireCoercibleToString(string), reLeft, '');
+  return replace.call(requireCoercibleToString(string), reLeft, EMPTY_STRING);
 }
 
-// CONCATENATED MODULE: ./node_modules/trim-right-x/src/trim-right-x.js
+
+// CONCATENATED MODULE: ./node_modules/trim-right-x/dist/trim-right-x.esm.js
 
 
-
-const trim_right_x_RegExpCtr = /none/.constructor;
-const reRight2016 = new trim_right_x_RegExpCtr(`[${string2016}]+$`);
-const reRight2018 = new trim_right_x_RegExpCtr(`[${white_space_x}]+$`);
-const {replace: trim_right_x_replace} = '';
-
+var trim_right_x_esm_EMPTY_STRING = '';
+var trim_right_x_esm_RegExpCtr = /none/.constructor;
+var reRight2016 = new trim_right_x_esm_RegExpCtr("[".concat(string2016, "]+$"));
+var reRight2018 = new trim_right_x_esm_RegExpCtr("[".concat(white_space_x_esm, "]+$"));
+var trim_right_x_esm_replace = trim_right_x_esm_EMPTY_STRING.replace;
 /**
  * This method removes whitespace from the right end of a string. (ES2016).
  *
- * @param {string} string - The string to trim the right end whitespace from.
+ * @param {string} [string] - The string to trim the right end whitespace from.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @returns {string} The right trimmed string.
  */
-function trimRight2016(string) {
-  return trim_right_x_replace.call(requireCoercibleToString(string), reRight2016, '');
-}
 
+function trimRight2016(string) {
+  return trim_right_x_esm_replace.call(requireCoercibleToString(string), reRight2016, trim_right_x_esm_EMPTY_STRING);
+}
 /**
  * This method removes whitespace from the right end of a string. (ES2018).
  *
- * @param {string} string - The string to trim the right end whitespace from.
+ * @param {string} [string] - The string to trim the right end whitespace from.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @returns {string} The right trimmed string.
  */
+
 function trimRight2018(string) {
-  return trim_right_x_replace.call(requireCoercibleToString(string), reRight2018, '');
+  return trim_right_x_esm_replace.call(requireCoercibleToString(string), reRight2018, trim_right_x_esm_EMPTY_STRING);
 }
 
-// CONCATENATED MODULE: ./node_modules/trim-x/src/trim-x.js
 
+// CONCATENATED MODULE: ./node_modules/trim-x/dist/trim-x.esm.js
 
 
 /**
  * This method removes whitespace from the left and right end of a string.
  * (ES2016).
  *
- * @param {string} string - The string to trim the whitespace from.
+ * @param {string} [string] - The string to trim the whitespace from.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @returns {string} The trimmed string.
  */
+
 function trim2016(string) {
   return trimLeft2016(trimRight2016(string));
 }
-
 /**
  * This method removes whitespace from the left and right end of a string.
  * (ES2018).
  *
- * @param {string} string - The string to trim the whitespace from.
+ * @param {string} [string] - The string to trim the whitespace from.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @returns {string} The trimmed string.
  */
+
 function trim2018(string) {
   return trimLeft2018(trimRight2018(string));
 }
 
-// CONCATENATED MODULE: ./node_modules/normalize-space-x/src/normalize-space-x.js
+
+// CONCATENATED MODULE: ./node_modules/normalize-space-x/dist/normalize-space-x.esm.js
 
 
-
-const normalize_space_x_RegExpCtr = /none/.constructor;
-const reNormalize2016 = new normalize_space_x_RegExpCtr(`[${string2016}]+`, 'g');
-const reNormalize2018 = new normalize_space_x_RegExpCtr(`[${white_space_x}]+`, 'g');
-const {replace: normalize_space_x_replace} = '';
-
+var SPACE = ' ';
+var normalize_space_x_esm_RegExpCtr = /none/.constructor;
+var reNormalize2016 = new normalize_space_x_esm_RegExpCtr("[".concat(string2016, "]+"), 'g');
+var reNormalize2018 = new normalize_space_x_esm_RegExpCtr("[".concat(white_space_x_esm, "]+"), 'g');
+var normalize_space_x_esm_replace = SPACE.replace;
 /**
  * This method strips leading and trailing white-space from a string,
  * replaces sequences of whitespace characters by a single space,
  * and returns the resulting string. (ES2016).
  *
- * @param {string} string - The string to be normalized.
+ * @param {string} [string] - The string to be normalized.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @returns {string} The normalized string.
  */
-function normalizeSpace2016(string) {
-  return normalize_space_x_replace.call(trim2016(string), reNormalize2016, ' ');
-}
 
+function normalizeSpace2016(string) {
+  return normalize_space_x_esm_replace.call(trim2016(string), reNormalize2016, SPACE);
+}
 /**
  * This method strips leading and trailing white-space from a string,
  * replaces sequences of whitespace characters by a single space,
  * and returns the resulting string. (ES2018).
  *
- * @param {string} string - The string to be normalized.
+ * @param {string} [string] - The string to be normalized.
  * @throws {TypeError} If string is null or undefined or not coercible.
  */
+
 function normalizeSpace2018(string) {
-  return normalize_space_x_replace.call(trim2018(string), reNormalize2018, ' ');
+  return normalize_space_x_esm_replace.call(trim2018(string), reNormalize2018, SPACE);
 }
 
-// CONCATENATED MODULE: ./node_modules/replace-comments-x/src/replace-comments-x.js
+
+// CONCATENATED MODULE: ./node_modules/replace-comments-x/dist/replace-comments-x.esm.js
 
 
-
-const STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
-const {replace: replace_comments_x_replace} = '';
-
+var replace_comments_x_esm_EMPTY_STRING = '';
+var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/gm;
+var replace_comments_x_esm_replace = replace_comments_x_esm_EMPTY_STRING.replace;
 /**
  * This method replaces comments in a string.
  *
- * @param {string} string - The string to be stripped.
+ * @param {string} [string] - The string to be stripped.
  * @param {string} [replacement=''] - The string to be used as a replacement.
  * @throws {TypeError} If string is null or undefined or not coercible.
  * @throws {TypeError} If replacement is not coercible.
  * @returns {string} The new string with the comments replaced.
  */
+
 function replaceComments(string, replacement) {
-  return replace_comments_x_replace.call(requireCoercibleToString(string), STRIP_COMMENTS, arguments.length > 1 ? ToString(replacement) : '');
+  return replace_comments_x_esm_replace.call(requireCoercibleToString(string), STRIP_COMMENTS, arguments.length > 1 ? ToString(replacement) : replace_comments_x_esm_EMPTY_STRING);
 }
 
-// CONCATENATED MODULE: ./node_modules/is-function-x/src/is-function-x.js
+
+// CONCATENATED MODULE: ./node_modules/is-function-x/dist/is-function-x.esm.js
+var is_function_x_esm_this = undefined;
+
+function is_function_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
 
 
 
@@ -986,29 +993,28 @@ function replaceComments(string, replacement) {
 
 
 
-const fToString = Function.prototype.toString;
-const funcTag = '[object Function]';
-const genTag = '[object GeneratorFunction]';
-const asyncTag = '[object AsyncFunction]';
-const ctrRx = /^class /;
-const {test} = ctrRx;
+var is_function_x_esm_SPACE = ' ';
+var fToString = Function.prototype.toString;
+var funcTag = '[object Function]';
+var genTag = '[object GeneratorFunction]';
+var asyncTag = '[object AsyncFunction]';
+var ctrRx = /^class /;
+var test = ctrRx.test;
+var hasNativeClass = attempt(function () {
+  is_function_x_esm_newArrowCheck(this, is_function_x_esm_this);
 
-const hasNativeClass =
-  attempt_x_default()(() => {
-    /* eslint-disable-next-line no-new-func */
-    return Function('"use strict"; return class My {};')();
-  }).threw === false;
+  /* eslint-disable-next-line no-new-func */
+  return Function('"use strict"; return class My {};')();
+}.bind(undefined)).threw === false;
 
-const testClassstring = function _testClassstring(value) {
-  return test.call(ctrRx, normalizeSpace2018(replaceComments(fToString.call(value), ' ')));
+var testClassstring = function _testClassstring(value) {
+  return test.call(ctrRx, normalizeSpace2018(replaceComments(fToString.call(value), is_function_x_esm_SPACE)));
 };
 
-const isES6ClassFn = function isES6ClassFunc(value) {
-  const result = attempt_x_default()(testClassstring, value);
-
+var isES6ClassFn = function isES6ClassFunc(value) {
+  var result = attempt(testClassstring, value);
   return result.threw === false && result.value;
 };
-
 /**
  * Checks if `value` is classified as a `Function` object.
  *
@@ -1018,14 +1024,15 @@ const isES6ClassFn = function isES6ClassFunc(value) {
  * @returns {boolean} Returns `true` if `value` is correctly classified,
  * else `false`.
  */
-const tryFuncToString = function funcToString(value, allowClass) {
+
+
+var tryFuncToString = function funcToString(value, allowClass) {
   if (hasNativeClass && allowClass === false && isES6ClassFn(value)) {
     return false;
   }
 
-  return attempt_x_default.a.call(value, fToString).threw === false;
+  return attempt.call(value, fToString).threw === false;
 };
-
 /**
  * Checks if `value` is classified as a `Function` object.
  *
@@ -1034,12 +1041,14 @@ const tryFuncToString = function funcToString(value, allowClass) {
  * @returns {boolean} Returns `true` if `value` is correctly classified,
  * else `false`.
  */
+
+
 function isFunction(value, allowClass) {
   if (is_primitive_default()(value)) {
     return false;
   }
 
-  if (has_to_string_tag_x) {
+  if (has_to_string_tag_x_esm) {
     return tryFuncToString(value, toBoolean(allowClass));
   }
 
@@ -1047,12 +1056,12 @@ function isFunction(value, allowClass) {
     return false;
   }
 
-  const strTag = toStringTag(value);
-
+  var strTag = toStringTag(value);
   return strTag === funcTag || strTag === genTag || strTag === asyncTag;
 }
 
-// CONCATENATED MODULE: ./node_modules/to-primitive-x/src/to-primitive-x.js
+
+// CONCATENATED MODULE: ./node_modules/to-primitive-x/dist/to-primitive-x.esm.js
 
 
 
@@ -1060,31 +1069,51 @@ function isFunction(value, allowClass) {
 
 
 
+var ZERO = 0;
+var ONE = 1;
+/* eslint-disable-next-line no-void */
 
+var UNDEFINED = void ZERO;
+var NUMBER = 'number';
+var STRING = 'string';
+var DEFAULT = 'default';
+/** @type {StringConstructor} */
+
+var StringCtr = STRING.constructor;
+/** @type {NumberConstructor} */
+
+var NumberCtr = ZERO.constructor;
 /* eslint-disable-next-line compat/compat */
-const symToPrimitive = has_symbol_support_x && Symbol.toPrimitive;
+
+var symToPrimitive = has_symbol_support_x_esm && Symbol.toPrimitive;
 /* eslint-disable-next-line compat/compat */
-const symValueOf = has_symbol_support_x && Symbol.prototype.valueOf;
 
-const toStringOrder = ['toString', 'valueOf'];
-const toNumberOrder = ['valueOf', 'toString'];
-const orderLength = 2;
+var symValueOf = has_symbol_support_x_esm && Symbol.prototype.valueOf;
+var toStringOrder = ['toString', 'valueOf'];
+var toNumberOrder = ['valueOf', 'toString'];
+var orderLength = 2;
+/**
+ * @param {*} ordinary - The ordinary to convert.
+ * @param {*} hint - The hint.
+ * @returns {*} - The primitive.
+ */
 
-const ordinaryToPrimitive = function _ordinaryToPrimitive(O, hint) {
-  RequireObjectCoercible(O);
+var ordinaryToPrimitive = function _ordinaryToPrimitive(ordinary, hint) {
+  requireObjectCoercible(ordinary);
 
-  if (typeof hint !== 'string' || (hint !== 'number' && hint !== 'string')) {
+  if (typeof hint !== 'string' || hint !== NUMBER && hint !== STRING) {
     throw new TypeError('hint must be "string" or "number"');
   }
 
-  const methodNames = hint === 'string' ? toStringOrder : toNumberOrder;
-  let method;
-  let result;
-  for (let i = 0; i < orderLength; i += 1) {
-    method = O[methodNames[i]];
+  var methodNames = hint === STRING ? toStringOrder : toNumberOrder;
+  var method;
+  var result;
+
+  for (var i = ZERO; i < orderLength; i += ONE) {
+    method = ordinary[methodNames[i]];
 
     if (isFunction(method)) {
-      result = method.call(O);
+      result = method.call(ordinary);
 
       if (is_primitive_default()(result)) {
         return result;
@@ -1094,22 +1123,69 @@ const ordinaryToPrimitive = function _ordinaryToPrimitive(O, hint) {
 
   throw new TypeError('No default value');
 };
+/**
+ * @param {*} object - The object.
+ * @param {*} property - The property.
+ * @returns {undefined|Function} - The method.
+ */
 
-const getMethod = function _getMethod(O, P) {
-  const func = O[P];
+
+var getMethod = function _getMethod(object, property) {
+  var func = object[property];
 
   if (isNil(func) === false) {
     if (isFunction(func) === false) {
-      throw new TypeError(`${func} returned for property ${P} of object ${O} is not a function`);
+      throw new TypeError("".concat(func, " returned for property ").concat(property, " of object ").concat(object, " is not a function"));
     }
 
     return func;
   }
 
-  /* eslint-disable-next-line no-void */
-  return void 0;
+  return UNDEFINED;
 };
+/**
+ * Get the hint.
+ *
+ * @param {*} value - The value to compare.
+ * @param {boolean} supplied - Was a value supplied.
+ * @returns {string} - The hint string.
+ */
 
+
+var getHint = function getHint(value, supplied) {
+  if (supplied) {
+    if (value === StringCtr) {
+      return STRING;
+    }
+
+    if (value === NumberCtr) {
+      return NUMBER;
+    }
+  }
+
+  return DEFAULT;
+};
+/**
+ * Get the primitive from the exotic.
+ *
+ * @param {*} value - The exotic.
+ * @returns {*} - The primitive.
+ */
+
+
+var to_primitive_x_esm_getExoticToPrim = function getExoticToPrim(value) {
+  if (has_symbol_support_x_esm) {
+    if (symToPrimitive) {
+      return getMethod(value, symToPrimitive);
+    }
+
+    if (is_symbol_default()(value)) {
+      return symValueOf;
+    }
+  }
+
+  return UNDEFINED;
+};
 /**
  * This method converts a JavaScript object to a primitive value.
  * Note: When toPrimitive is called with no hint, then it generally behaves as
@@ -1125,33 +1201,18 @@ const getMethod = function _getMethod(O, P) {
  * @returns {string|number} The converted input as a primitive.
  * @see {http://www.ecma-international.org/ecma-262/6.0/#sec-toprimitive}
  */
+
+
 function toPrimitive(input, preferredType) {
   if (is_primitive_default()(input)) {
     return input;
   }
 
-  let hint = 'default';
-
-  if (arguments.length > 1) {
-    if (preferredType === String) {
-      hint = 'string';
-    } else if (preferredType === Number) {
-      hint = 'number';
-    }
-  }
-
-  let exoticToPrim;
-
-  if (has_symbol_support_x) {
-    if (symToPrimitive) {
-      exoticToPrim = getMethod(input, symToPrimitive);
-    } else if (is_symbol_default()(input)) {
-      exoticToPrim = symValueOf;
-    }
-  }
+  var hint = getHint(preferredType, arguments.length > ONE);
+  var exoticToPrim = to_primitive_x_esm_getExoticToPrim(input);
 
   if (typeof exoticToPrim !== 'undefined') {
-    const result = exoticToPrim.call(input, hint);
+    var result = exoticToPrim.call(input, hint);
 
     if (is_primitive_default()(result)) {
       return result;
@@ -1160,34 +1221,33 @@ function toPrimitive(input, preferredType) {
     throw new TypeError('unable to convert exotic object to primitive');
   }
 
-  if (hint === 'default' && (is_date_object_default()(input) || is_symbol_default()(input))) {
-    hint = 'string';
-  }
-
-  return ordinaryToPrimitive(input, hint === 'default' ? 'number' : hint);
+  var newHint = hint === DEFAULT && (is_date_object_default()(input) || is_symbol_default()(input)) ? STRING : hint;
+  return ordinaryToPrimitive(input, newHint === DEFAULT ? NUMBER : newHint);
 }
 
-// CONCATENATED MODULE: ./node_modules/nan-x/src/nan-x.js
+
+// CONCATENATED MODULE: ./node_modules/nan-x/dist/nan-x.esm.js
 /**
  * The constant NaN derived mathematically by 0 / 0.
  *
  * @type number
  */
-/* harmony default export */ var nan_x = (0 / 0);
-
-// CONCATENATED MODULE: ./node_modules/parse-int-x/src/parse-int-x.js
+/* harmony default export */ var nan_x_esm = (0 / 0);
 
 
+// CONCATENATED MODULE: ./node_modules/parse-int-x/dist/parse-int-x.esm.js
 
 
-const nativeParseInt = parseInt;
+
+var nativeParseInt = parseInt;
 /**  @type {Function} */
-const castNumber = (0).constructor;
-// noinspection JSPotentiallyInvalidConstructorUsage
-const {charAt} = ''.constructor.prototype;
-const hexRegex = /^[-+]?0[xX]/;
-const {test: parse_int_x_test} = hexRegex;
 
+var castNumber = 0 .constructor; // noinspection JSPotentiallyInvalidConstructorUsage
+
+var _ref = '',
+    charAt = _ref.charAt;
+var hexRegex = /^[-+]?0[xX]/;
+var parse_int_x_esm_test = hexRegex.test;
 /**
  * This method parses a string argument and returns an integer of the specified
  * radix (the base in mathematical numeral systems). (ES2016).
@@ -1205,12 +1265,11 @@ const {test: parse_int_x_test} = hexRegex;
  * @returns {number} An integer number parsed from the given string. If the first
  *  character cannot be converted to a number, NaN is returned.
  */
+
 function parseInt2016(string, radix) {
-  const str = trimLeft2016(ToString(string));
-
-  return nativeParseInt(str, castNumber(radix) || (parse_int_x_test.call(hexRegex, str) ? 16 : 10));
+  var str = trimLeft2016(ToString(string));
+  return nativeParseInt(str, castNumber(radix) || (parse_int_x_esm_test.call(hexRegex, str) ? 16 : 10));
 }
-
 /**
  * This method parses a string argument and returns an integer of the specified
  * radix (the base in mathematical numeral systems). (ES2018).
@@ -1228,15 +1287,17 @@ function parseInt2016(string, radix) {
  * @returns {number} An integer number parsed from the given string. If the first
  *  character cannot be converted to a number, NaN is returned.
  */
-function parseInt2018(string, radix) {
-  const str = trimLeft2018(ToString(string));
 
-  if (charAt.call(str, 0) === '\u180E') {
-    return nan_x;
+function parseInt2018(string, radix) {
+  var str = trimLeft2018(ToString(string));
+
+  if (charAt.call(str, 0) === "\u180E") {
+    return nan_x_esm;
   }
 
-  return nativeParseInt(str, castNumber(radix) || (parse_int_x_test.call(hexRegex, str) ? 16 : 10));
+  return nativeParseInt(str, castNumber(radix) || (parse_int_x_esm_test.call(hexRegex, str) ? 16 : 10));
 }
+
 
 // CONCATENATED MODULE: ./dist/to-number-x.esm.js
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toNumber2016", function() { return toNumber2016; });
@@ -1249,11 +1310,11 @@ function parseInt2018(string, radix) {
 var binaryRadix = 2;
 var octalRadix = 8;
 var testCharsCount = 2;
-var ERROR_MESSAGE = 'Cannot convert a Symbol value to a number';
+var to_number_x_esm_ERROR_MESSAGE = 'Cannot convert a Symbol value to a number';
 /** @type {NumberConstructor} */
 
 var to_number_x_esm_castNumber = testCharsCount.constructor;
-var pStrSlice = ERROR_MESSAGE.slice;
+var pStrSlice = to_number_x_esm_ERROR_MESSAGE.slice;
 var binaryRegex = /^0b[01]+$/i;
 var RegExpConstructor = binaryRegex.constructor; // Note that in IE 8, RegExp.prototype.test doesn't seem to exist: ie, "test" is
 // an own property of regexes. wtf.
@@ -1300,7 +1361,7 @@ function toNumber2016(argument) {
   var value = toPrimitive(argument, Number);
 
   if (is_symbol_default()(value)) {
-    throw new TypeError(ERROR_MESSAGE);
+    throw new TypeError(to_number_x_esm_ERROR_MESSAGE);
   }
 
   if (typeof value === 'string') {
@@ -1313,7 +1374,7 @@ function toNumber2016(argument) {
     }
 
     if (hasNonWS2016(value) || isInvalidHexLiteral(value)) {
-      return nan_x;
+      return nan_x_esm;
     }
 
     var trimmed = trim2016(value);
@@ -1337,7 +1398,7 @@ function toNumber2018(argument) {
   var value = toPrimitive(argument, to_number_x_esm_castNumber);
 
   if (is_symbol_default()(value)) {
-    throw new TypeError(ERROR_MESSAGE);
+    throw new TypeError(to_number_x_esm_ERROR_MESSAGE);
   }
 
   if (typeof value === 'string') {
@@ -1350,7 +1411,7 @@ function toNumber2018(argument) {
     }
 
     if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
-      return nan_x;
+      return nan_x_esm;
     }
 
     var trimmed = trim2018(value);
@@ -1363,7 +1424,7 @@ function toNumber2018(argument) {
   return to_number_x_esm_castNumber(value);
 }
 
-//# sourceMappingURL=to-number-x.esm.js.map
+
 
 /***/ })
 /******/ ]);

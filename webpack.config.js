@@ -9,6 +9,7 @@ const childProcess = require('child_process');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const eslintFriendlyFormatter = require('eslint-friendly-formatter');
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 const camelCase = require('lodash/camelCase');
@@ -138,6 +139,17 @@ module.exports = function generateConfig(env) {
     module: {
       rules: [
         /**
+         * Extract sourceMappingURL comments from modules and offer it to webpack.
+         *
+         * @see {@link https://github.com/webpack-contrib/source-map-loader}
+         */
+        {
+          enforce: 'pre',
+          loader: 'source-map-loader',
+          test: /\.js$/,
+        },
+
+        /**
          * Eslint-loader options.
          *
          * @type {!object}
@@ -208,6 +220,27 @@ module.exports = function generateConfig(env) {
      */
     plugins: [
       /**
+       * Use the shorthand version.
+       *
+       * @type {!object}
+       * @see {@link https://webpack.js.org/plugins/environment-plugin/}
+       */
+      new webpack.EnvironmentPlugin({
+        DEBUG: false, // use 'false' unless process.env.DEBUG is defined.
+        NODE_ENV: DEVELOPMENT, // use 'development' unless process.env.NODE_ENV is defined.
+      }),
+
+      /**
+       * Smaller lodash builds. We are not opting in to path feature.
+       *
+       * @type {!object}
+       * @see {@link https://github.com/lodash/lodash-webpack-plugin}
+       */
+      new LodashModuleReplacementPlugin({
+        paths: true,
+      }),
+
+      /**
        * Adds a banner to the top of each generated chunk.
        *
        * @type {!object}
@@ -252,7 +285,6 @@ module.exports = function generateConfig(env) {
         src: path.resolve(__dirname, './src'),
       },
       extensions: ['.js', '.json'],
-      mainFields: ['module', 'browser', 'main'],
     },
   };
 
