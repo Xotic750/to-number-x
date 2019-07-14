@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-13T23:41:38.375Z",
+  "date": "2019-07-14T21:48:39.172Z",
   "describe": "",
   "description": "Converts argument to a value of type Number.",
   "file": "to-number-x.js",
-  "hash": "3d1c7f3309a9c53be22c",
+  "hash": "b4aaf0654ff1a2f202b0",
   "license": "MIT",
-  "version": "3.0.5"
+  "version": "3.0.6"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -350,7 +350,6 @@ function attempt(fn) {
     };
   }
 }
-;
 
 
 // CONCATENATED MODULE: ./node_modules/has-symbol-support-x/dist/has-symbol-support-x.esm.js
