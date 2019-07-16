@@ -1,6 +1,5 @@
 import toNumber, {toNumber2016} from 'src/to-number-x';
 
-/* eslint-disable-next-line compat/compat */
 const hasSymbol = typeof Symbol === 'function' && typeof Symbol('') === 'symbol';
 const ifSymbolIt = hasSymbol ? it : xit;
 
@@ -82,7 +81,7 @@ describe('toNumber', function() {
   describe('toNumber2016', function() {
     it('coersion', function() {
       expect.assertions(5);
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber2016(undefined))).toBe(true, 'undefined coerces to NaN');
       expect(toNumber2016(null)).toBe(0, 'null coerces to +0');
       expect(toNumber2016(false)).toBe(0, 'false coerces to +0');
@@ -92,16 +91,14 @@ describe('toNumber', function() {
 
     it('numbers', function() {
       expect.assertions(12);
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber2016(NaN))).toBe(true, 'NaN returns itself');
 
       [0, -0, 42, Infinity, -Infinity].forEach(function(num) {
-        /* eslint-disable-next-line compat/compat */
         expect(Object.is(toNumber2016(num), num)).toBe(true, `${num} returns itself`);
       });
 
       ['foo', '0', '4a', '2.0', 'Infinity', '-Infinity'].forEach(function(numString) {
-        /* eslint-disable-next-line compat/compat */
         expect(Object.is(toNumber2016(numString), Number(numString))).toBe(
           true,
           `"${numString}" coerces to ${Number(numString)}`,
@@ -112,7 +109,6 @@ describe('toNumber', function() {
     it('objects', function() {
       expect.assertions(5);
       objects.forEach(function(object) {
-        /* eslint-disable-next-line compat/compat */
         expect(Object.is(toNumber2016(object), Number(object))).toBe(
           true,
           `object ${object} coerces to same as ToPrimitive of object does`,
@@ -135,10 +131,8 @@ describe('toNumber', function() {
         }),
       ).toBe(3, 'Object that toStrings to 0b11 is 3');
 
-      /* eslint-disable-next-line compat/compat */
       expect(Number.isNaN(toNumber2016('0b12'))).toBe(true, '0b12 is NaN');
       expect(
-        /* eslint-disable-next-line compat/compat */
         Number.isNaN(
           toNumber2016({
             toString() {
@@ -160,10 +154,8 @@ describe('toNumber', function() {
         }),
       ).toBe(9, 'Object that toStrings to 0o11 is 9');
 
-      /* eslint-disable-next-line compat/compat */
       expect(Number.isNaN(toNumber2016('0o18'))).toBe(true, '0o18 is NaN');
       expect(
-        /* eslint-disable-next-line compat/compat */
         Number.isNaN(
           toNumber2016({
             toString() {
@@ -185,10 +177,8 @@ describe('toNumber', function() {
         }),
       ).toBe(10, 'Object that toStrings to 0xA is 1');
 
-      /* eslint-disable-next-line compat/compat */
       expect(Number.isNaN(toNumber2016('0xG'))).toBe(true, '0xG is NaN');
       expect(
-        /* eslint-disable-next-line compat/compat */
         Number.isNaN(
           toNumber2016({
             toString() {
@@ -201,13 +191,13 @@ describe('toNumber', function() {
 
     it('signed hex numbers', function() {
       expect.assertions(4);
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber2016('-0xF'))).toBe(true, '-0xF is NaN');
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber2016(' -0xF '))).toBe(true, 'space-padded -0xF is NaN');
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber2016('+0xF'))).toBe(true, '+0xF is NaN');
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber2016(' +0xF '))).toBe(true, 'space-padded +0xF is NaN');
     });
 
@@ -217,7 +207,7 @@ describe('toNumber', function() {
 
       Object.keys(nonWhitespaces2016).forEach(function(desc) {
         const nonWS = nonWhitespaces2016[desc];
-        /* eslint-disable-next-line compat/compat */
+
         expect(Number.isNaN(toNumber2016(nonWS + 0 + nonWS))).toBe(true, `non-whitespace ${desc} not trimmed`);
       });
     });
@@ -238,7 +228,7 @@ describe('toNumber', function() {
 
     ifSymbolIt('should throw for Symbol', function() {
       expect.assertions(2);
-      /* eslint-disable-next-line compat/compat */
+
       const sym = Symbol('foo');
       expect(function() {
         toNumber2016(sym);
@@ -254,7 +244,7 @@ describe('toNumber', function() {
   describe('toNumber', function() {
     it('coersion', function() {
       expect.assertions(5);
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber(undefined))).toBe(true, 'undefined coerces to NaN');
       expect(toNumber(null)).toBe(0, 'null coerces to +0');
       expect(toNumber(false)).toBe(0, 'false coerces to +0');
@@ -264,16 +254,14 @@ describe('toNumber', function() {
 
     it('numbers', function() {
       expect.assertions(12);
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber(NaN))).toBe(true, 'NaN returns itself');
 
       [0, -0, 42, Infinity, -Infinity].forEach(function(num) {
-        /* eslint-disable-next-line compat/compat */
         expect(Object.is(toNumber(num), num)).toBe(true, `${num} returns itself`);
       });
 
       ['foo', '0', '4a', '2.0', 'Infinity', '-Infinity'].forEach(function(numString) {
-        /* eslint-disable-next-line compat/compat */
         expect(Object.is(toNumber(numString), Number(numString))).toBe(true, `"${numString}" coerces to ${Number(numString)}`);
       });
     });
@@ -281,7 +269,6 @@ describe('toNumber', function() {
     it('objects', function() {
       expect.assertions(5);
       objects.forEach(function(object) {
-        /* eslint-disable-next-line compat/compat */
         expect(Object.is(toNumber(object), Number(object))).toBe(
           true,
           `object ${object} coerces to same as ToPrimitive of object does`,
@@ -304,10 +291,8 @@ describe('toNumber', function() {
         }),
       ).toBe(3, 'Object that toStrings to 0b11 is 3');
 
-      /* eslint-disable-next-line compat/compat */
       expect(Number.isNaN(toNumber('0b12'))).toBe(true, '0b12 is NaN');
       expect(
-        /* eslint-disable-next-line compat/compat */
         Number.isNaN(
           toNumber({
             toString() {
@@ -329,10 +314,8 @@ describe('toNumber', function() {
         }),
       ).toBe(9, 'Object that toStrings to 0o11 is 9');
 
-      /* eslint-disable-next-line compat/compat */
       expect(Number.isNaN(toNumber('0o18'))).toBe(true, '0o18 is NaN');
       expect(
-        /* eslint-disable-next-line compat/compat */
         Number.isNaN(
           toNumber({
             toString() {
@@ -354,10 +337,8 @@ describe('toNumber', function() {
         }),
       ).toBe(10, 'Object that toStrings to 0xA is 1');
 
-      /* eslint-disable-next-line compat/compat */
       expect(Number.isNaN(toNumber('0xG'))).toBe(true, '0xG is NaN');
       expect(
-        /* eslint-disable-next-line compat/compat */
         Number.isNaN(
           toNumber({
             toString() {
@@ -370,13 +351,13 @@ describe('toNumber', function() {
 
     it('signed hex numbers', function() {
       expect.assertions(4);
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber('-0xF'))).toBe(true, '-0xF is NaN');
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber(' -0xF '))).toBe(true, 'space-padded -0xF is NaN');
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber('+0xF'))).toBe(true, '+0xF is NaN');
-      /* eslint-disable-next-line compat/compat */
+
       expect(Number.isNaN(toNumber(' +0xF '))).toBe(true, 'space-padded +0xF is NaN');
     });
 
@@ -386,7 +367,7 @@ describe('toNumber', function() {
 
       Object.keys(nonWhitespaces2018).forEach(function(desc) {
         const nonWS = nonWhitespaces2018[desc];
-        /* eslint-disable-next-line compat/compat */
+
         expect(Number.isNaN(toNumber(nonWS + 0 + nonWS))).toBe(true, `non-whitespace ${desc} not trimmed`);
       });
     });
@@ -407,7 +388,7 @@ describe('toNumber', function() {
 
     ifSymbolIt('should throw for Symbol', function() {
       expect.assertions(2);
-      /* eslint-disable-next-line compat/compat */
+
       const sym = Symbol('foo');
       expect(function() {
         toNumber(sym);
