@@ -1,6 +1,6 @@
 {
   "name": "to-number-x",
-  "version": "3.0.10",
+  "version": "3.0.11",
   "description": "Converts argument to a value of type Number.",
   "homepage": "https://github.com/Xotic750/to-number-x",
   "author": {
@@ -49,10 +49,10 @@
   },
   "dependencies": {
     "is-symbol": "^1.0.2",
-    "nan-x": "^2.0.9",
-    "parse-int-x": "^3.0.7",
-    "to-primitive-x": "^2.0.9",
-    "trim-x": "^4.0.8"
+    "nan-x": "^2.0.10",
+    "parse-int-x": "^3.0.8",
+    "to-primitive-x": "^2.0.10",
+    "trim-x": "^4.0.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
