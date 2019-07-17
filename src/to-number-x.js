@@ -86,7 +86,7 @@ export function toNumber2016(argument) {
  * @throws {TypeError} - If argument is a Symbol or not coercible.
  * @returns {*} The argument converted to a number.
  */
-export default function toNumber2018(argument) {
+const toNumber2018 = function toNumber2018(argument) {
   const value = toPrimitive(argument, castNumber);
 
   if (isSymbol(value)) {
@@ -114,4 +114,6 @@ export default function toNumber2018(argument) {
   }
 
   return castNumber(value);
-}
+};
+
+export default toNumber2018;
