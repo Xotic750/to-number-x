@@ -1,7 +1,7 @@
 import isSymbol from 'is-symbol';
 import toPrimitive from 'to-primitive-x';
-import trim, {trim2016} from 'trim-x';
-import $parseInt, {parseInt2016} from 'parse-int-x';
+import trim from 'trim-x';
+import $parseInt from 'parse-int-x';
 import NAN from 'nan-x';
 
 const binaryRadix = 2;
@@ -27,11 +27,6 @@ const isOctal = function _isOctal(value) {
   return test.call(octalRegex, value);
 };
 
-const nonWSregex2016 = new RegExpConstructor('[\u0085\u200b\ufffe]', 'g');
-const hasNonWS2016 = function _hasNonWS(value) {
-  return test.call(nonWSregex2016, value);
-};
-
 const nonWSregex2018 = new RegExpConstructor('[\u0085\u180e\u200b\ufffe]', 'g');
 const hasNonWS2018 = function _hasNonWS(value) {
   return test.call(nonWSregex2018, value);
@@ -43,50 +38,13 @@ const isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
 };
 
 /**
- * This method converts argument to a value of type Number. (ES2016).
- *
- * @param {*} [argument] - The argument to convert to a number.
- * @throws {TypeError} - If argument is a Symbol or not coercible.
- * @returns {*} The argument converted to a number.
- */
-export function toNumber2016(argument) {
-  const value = toPrimitive(argument, Number);
-
-  if (isSymbol(value)) {
-    throw new TypeError(ERROR_MESSAGE);
-  }
-
-  if (typeof value === 'string') {
-    if (isBinary(value)) {
-      return toNumber2016(parseInt2016(pStrSlice.call(value, testCharsCount), binaryRadix));
-    }
-
-    if (isOctal(value)) {
-      return toNumber2016(parseInt2016(pStrSlice.call(value, testCharsCount), octalRadix));
-    }
-
-    if (hasNonWS2016(value) || isInvalidHexLiteral(value)) {
-      return NAN;
-    }
-
-    const trimmed = trim2016(value);
-
-    if (trimmed !== value) {
-      return toNumber2016(trimmed);
-    }
-  }
-
-  return castNumber(value);
-}
-
-/**
  * This method converts argument to a value of type Number. (ES2018).
  *
  * @param {*} [argument] - The argument to convert to a number.
  * @throws {TypeError} - If argument is a Symbol or not coercible.
  * @returns {*} The argument converted to a number.
  */
-const toNumber2018 = function toNumber2018(argument) {
+const toNumber = function toNumber(argument) {
   const value = toPrimitive(argument, castNumber);
 
   if (isSymbol(value)) {
@@ -95,11 +53,11 @@ const toNumber2018 = function toNumber2018(argument) {
 
   if (typeof value === 'string') {
     if (isBinary(value)) {
-      return toNumber2018($parseInt(pStrSlice.call(value, testCharsCount), binaryRadix));
+      return toNumber($parseInt(pStrSlice.call(value, testCharsCount), binaryRadix));
     }
 
     if (isOctal(value)) {
-      return toNumber2018($parseInt(pStrSlice.call(value, testCharsCount), octalRadix));
+      return toNumber($parseInt(pStrSlice.call(value, testCharsCount), octalRadix));
     }
 
     if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
@@ -109,11 +67,11 @@ const toNumber2018 = function toNumber2018(argument) {
     const trimmed = trim(value);
 
     if (trimmed !== value) {
-      return toNumber2018(trimmed);
+      return toNumber(trimmed);
     }
   }
 
   return castNumber(value);
 };
 
-export default toNumber2018;
+export default toNumber;

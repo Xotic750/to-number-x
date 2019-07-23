@@ -7,11 +7,3 @@ exports[`toNumber toNumber should throw for Symbol 1`] = `"Cannot convert a Symb
 exports[`toNumber toNumber should throw for Symbol 2`] = `"Cannot convert a Symbol value to a number"`;
 
 exports[`toNumber toNumber should throw if target is not coercible 1`] = `"No default value"`;
-
-exports[`toNumber toNumber2016 objects 1`] = `"No default value"`;
-
-exports[`toNumber toNumber2016 should throw for Symbol 1`] = `"Cannot convert a Symbol value to a number"`;
-
-exports[`toNumber toNumber2016 should throw for Symbol 2`] = `"Cannot convert a Symbol value to a number"`;
-
-exports[`toNumber toNumber2016 should throw if target is not coercible 1`] = `"No default value"`;
