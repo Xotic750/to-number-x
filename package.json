@@ -1,6 +1,6 @@
 {
   "name": "to-number-x",
-  "version": "3.0.21",
+  "version": "3.0.22",
   "description": "Converts argument to a value of type Number.",
   "homepage": "https://github.com/Xotic750/to-number-x",
   "author": {
@@ -21,6 +21,7 @@
   ],
   "module": "dist/to-number-x.esm.js",
   "main": "dist/to-number-x.js",
+  "jsdelivr": "dist/to-number-x.min.js",
   "scripts": {
     "build:esm": "mkdirp dist && babel -s true --env-name esm src/to-number-x.js -o dist/to-number-x.esm.js",
     "build:base": "webpack --bail --progress --profile --colors",
@@ -49,10 +50,10 @@
   },
   "dependencies": {
     "is-symbol": "^1.0.2",
-    "nan-x": "^2.0.20",
-    "parse-int-x": "^3.0.19",
-    "to-primitive-x": "^2.0.20",
-    "trim-x": "^4.0.20"
+    "nan-x": "^2.0.21",
+    "parse-int-x": "^3.0.20",
+    "to-primitive-x": "^2.0.21",
+    "trim-x": "^4.0.21"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
