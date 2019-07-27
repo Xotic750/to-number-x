@@ -7,8 +7,6 @@ var binaryRadix = 2;
 var octalRadix = 8;
 var testCharsCount = 2;
 var ERROR_MESSAGE = 'Cannot convert a Symbol value to a number';
-/** @type {NumberConstructor} */
-
 var castNumber = testCharsCount.constructor;
 var pStrSlice = ERROR_MESSAGE.slice;
 var binaryRegex = /^0b[01]+$/i;

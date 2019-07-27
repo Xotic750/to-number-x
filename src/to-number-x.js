@@ -9,7 +9,6 @@ const octalRadix = 8;
 const testCharsCount = 2;
 const ERROR_MESSAGE = 'Cannot convert a Symbol value to a number';
 
-/** @type {NumberConstructor} */
 const castNumber = testCharsCount.constructor;
 const pStrSlice = ERROR_MESSAGE.slice;
 
