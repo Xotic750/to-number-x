@@ -36,6 +36,14 @@ const isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
   return test.call(invalidHexLiteral, value);
 };
 
+const assertNotSymbol = function assertNotSymbol(value) {
+  if (isSymbol(value)) {
+    throw new TypeError(ERROR_MESSAGE);
+  }
+
+  return value;
+};
+
 /**
  * This method converts argument to a value of type Number. (ES2018).
  *
@@ -44,11 +52,7 @@ const isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
  * @returns {*} The argument converted to a number.
  */
 const toNumber = function toNumber(argument) {
-  const value = toPrimitive(argument, castNumber);
-
-  if (isSymbol(value)) {
-    throw new TypeError(ERROR_MESSAGE);
-  }
+  const value = assertNotSymbol(toPrimitive(argument, castNumber));
 
   if (typeof value === 'string') {
     if (isBinary(value)) {
