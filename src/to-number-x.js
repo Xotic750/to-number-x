@@ -48,6 +48,28 @@ const parseBase = function parseBase(value, radix) {
   return $parseInt(pStrSlice.call(value, testCharsCount), radix);
 };
 
+const convertString = function convertString(toNum, value) {
+  if (isBinary(value)) {
+    return toNum(parseBase(value, binaryRadix));
+  }
+
+  if (isOctal(value)) {
+    return toNum(parseBase(value, octalRadix));
+  }
+
+  if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
+    return NAN;
+  }
+
+  const trimmed = trim(value);
+
+  if (trimmed !== value) {
+    return toNum(trimmed);
+  }
+
+  return null;
+};
+
 /**
  * This method converts argument to a value of type Number. (ES2019).
  *
@@ -59,22 +81,10 @@ const toNumber = function toNumber(argument) {
   const value = assertNotSymbol(toPrimitive(argument, castNumber));
 
   if (typeof value === 'string') {
-    if (isBinary(value)) {
-      return toNumber(parseBase(value, binaryRadix));
-    }
+    const val = convertString(toNumber, value);
 
-    if (isOctal(value)) {
-      return toNumber(parseBase(value, octalRadix));
-    }
-
-    if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
-      return NAN;
-    }
-
-    const trimmed = trim(value);
-
-    if (trimmed !== value) {
-      return toNumber(trimmed);
+    if (val !== null) {
+      return val;
     }
   }
 
