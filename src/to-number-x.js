@@ -17,22 +17,22 @@ const RegExpConstructor = binaryRegex.constructor;
 // Note that in IE 8, RegExp.prototype.test doesn't seem to exist: ie, "test" is
 // an own property of regexes. wtf.
 const {test} = binaryRegex;
-const isBinary = function _isBinary(value) {
+const isBinary = function isBinary(value) {
   return test.call(binaryRegex, value);
 };
 
 const octalRegex = /^0o[0-7]+$/i;
-const isOctal = function _isOctal(value) {
+const isOctal = function isOctal(value) {
   return test.call(octalRegex, value);
 };
 
-const nonWSregex2018 = new RegExpConstructor('[\u0085\u180e\u200b\ufffe]', 'g');
-const hasNonWS2018 = function _hasNonWS(value) {
-  return test.call(nonWSregex2018, value);
+const nonWSregex = new RegExpConstructor('[\u0085\u180e\u200b\ufffe]', 'g');
+const hasNonWS = function hasNonWS(value) {
+  return test.call(nonWSregex, value);
 };
 
 const invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
-const isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
+const isInvalidHexLiteral = function isInvalidHexLiteral(value) {
   return test.call(invalidHexLiteral, value);
 };
 
@@ -48,7 +48,7 @@ const parseBase = function parseBase(value, radix) {
   return $parseInt(pStrSlice.call(value, testCharsCount), radix);
 };
 
-const convertString = function convertString(toNum, value) {
+const parseString = function parseString(toNum, value) {
   if (isBinary(value)) {
     return toNum(parseBase(value, binaryRadix));
   }
@@ -57,7 +57,17 @@ const convertString = function convertString(toNum, value) {
     return toNum(parseBase(value, octalRadix));
   }
 
-  if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
+  return null;
+};
+
+const convertString = function convertString(toNum, value) {
+  const val = parseString(toNum, value);
+
+  if (val !== null) {
+    return val;
+  }
+
+  if (hasNonWS(value) || isInvalidHexLiteral(value)) {
     return NAN;
   }
 
