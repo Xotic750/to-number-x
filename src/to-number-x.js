@@ -44,6 +44,10 @@ const assertNotSymbol = function assertNotSymbol(value) {
   return value;
 };
 
+const parseBase = function parseBase(value, radix) {
+  return $parseInt(pStrSlice.call(value, testCharsCount), radix);
+};
+
 /**
  * This method converts argument to a value of type Number. (ES2019).
  *
@@ -56,11 +60,11 @@ const toNumber = function toNumber(argument) {
 
   if (typeof value === 'string') {
     if (isBinary(value)) {
-      return toNumber($parseInt(pStrSlice.call(value, testCharsCount), binaryRadix));
+      return toNumber(parseBase(value, binaryRadix));
     }
 
     if (isOctal(value)) {
-      return toNumber($parseInt(pStrSlice.call(value, testCharsCount), octalRadix));
+      return toNumber(parseBase(value, octalRadix));
     }
 
     if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
