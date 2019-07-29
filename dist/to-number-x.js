@@ -2,11 +2,11 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-27T21:22:54.109Z",
+  "date": "2019-07-29T18:51:06.413Z",
   "describe": "",
   "description": "Converts argument to a value of type Number.",
   "file": "to-number-x.js",
-  "hash": "632d69cb9cf52e15093a",
+  "hash": "5c895104d6e31871316f",
   "license": "MIT",
   "version": "3.0.28"
 }
@@ -1261,29 +1261,73 @@ var RegExpConstructor = binaryRegex.constructor; // Note that in IE 8, RegExp.pr
 
 var to_number_x_esm_test = binaryRegex.test;
 
-var isBinary = function _isBinary(value) {
+var isBinary = function isBinary(value) {
   return to_number_x_esm_test.call(binaryRegex, value);
 };
 
 var octalRegex = /^0o[0-7]+$/i;
 
-var isOctal = function _isOctal(value) {
+var isOctal = function isOctal(value) {
   return to_number_x_esm_test.call(octalRegex, value);
 };
 
-var nonWSregex2018 = new RegExpConstructor("[\x85\u180E\u200B\uFFFE]", 'g');
+var nonWSregex = new RegExpConstructor("[\x85\u180E\u200B\uFFFE]", 'g');
 
-var hasNonWS2018 = function _hasNonWS(value) {
-  return to_number_x_esm_test.call(nonWSregex2018, value);
+var hasNonWS = function hasNonWS(value) {
+  return to_number_x_esm_test.call(nonWSregex, value);
 };
 
 var invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
 
-var isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
+var isInvalidHexLiteral = function isInvalidHexLiteral(value) {
   return to_number_x_esm_test.call(invalidHexLiteral, value);
 };
+
+var to_number_x_esm_assertNotSymbol = function assertNotSymbol(value) {
+  if (is_symbol_default()(value)) {
+    throw new TypeError(to_number_x_esm_ERROR_MESSAGE);
+  }
+
+  return value;
+};
+
+var to_number_x_esm_parseBase = function parseBase(value, radix) {
+  return parse_int_x_esm(pStrSlice.call(value, testCharsCount), radix);
+};
+
+var parseString = function parseString(toNum, value) {
+  if (isBinary(value)) {
+    return toNum(to_number_x_esm_parseBase(value, binaryRadix));
+  }
+
+  if (isOctal(value)) {
+    return toNum(to_number_x_esm_parseBase(value, octalRadix));
+  }
+
+  return null;
+};
+
+var to_number_x_esm_convertString = function convertString(toNum, value) {
+  var val = parseString(toNum, value);
+
+  if (val !== null) {
+    return val;
+  }
+
+  if (hasNonWS(value) || isInvalidHexLiteral(value)) {
+    return nan_x_esm;
+  }
+
+  var trimmed = trim_x_esm(value);
+
+  if (trimmed !== value) {
+    return toNum(trimmed);
+  }
+
+  return null;
+};
 /**
- * This method converts argument to a value of type Number. (ES2018).
+ * This method converts argument to a value of type Number. (ES2019).
  *
  * @param {*} [argument] - The argument to convert to a number.
  * @throws {TypeError} - If argument is a Symbol or not coercible.
@@ -1292,29 +1336,13 @@ var isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
 
 
 var to_number_x_esm_toNumber = function toNumber(argument) {
-  var value = to_primitive_x_esm(argument, to_number_x_esm_castNumber);
-
-  if (is_symbol_default()(value)) {
-    throw new TypeError(to_number_x_esm_ERROR_MESSAGE);
-  }
+  var value = to_number_x_esm_assertNotSymbol(to_primitive_x_esm(argument, to_number_x_esm_castNumber));
 
   if (typeof value === 'string') {
-    if (isBinary(value)) {
-      return toNumber(parse_int_x_esm(pStrSlice.call(value, testCharsCount), binaryRadix));
-    }
+    var val = to_number_x_esm_convertString(toNumber, value);
 
-    if (isOctal(value)) {
-      return toNumber(parse_int_x_esm(pStrSlice.call(value, testCharsCount), octalRadix));
-    }
-
-    if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
-      return nan_x_esm;
-    }
-
-    var trimmed = trim_x_esm(value);
-
-    if (trimmed !== value) {
-      return toNumber(trimmed);
+    if (val !== null) {
+      return val;
     }
   }
 

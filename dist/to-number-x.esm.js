@@ -15,29 +15,73 @@ var RegExpConstructor = binaryRegex.constructor; // Note that in IE 8, RegExp.pr
 
 var test = binaryRegex.test;
 
-var isBinary = function _isBinary(value) {
+var isBinary = function isBinary(value) {
   return test.call(binaryRegex, value);
 };
 
 var octalRegex = /^0o[0-7]+$/i;
 
-var isOctal = function _isOctal(value) {
+var isOctal = function isOctal(value) {
   return test.call(octalRegex, value);
 };
 
-var nonWSregex2018 = new RegExpConstructor("[\x85\u180E\u200B\uFFFE]", 'g');
+var nonWSregex = new RegExpConstructor("[\x85\u180E\u200B\uFFFE]", 'g');
 
-var hasNonWS2018 = function _hasNonWS(value) {
-  return test.call(nonWSregex2018, value);
+var hasNonWS = function hasNonWS(value) {
+  return test.call(nonWSregex, value);
 };
 
 var invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
 
-var isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
+var isInvalidHexLiteral = function isInvalidHexLiteral(value) {
   return test.call(invalidHexLiteral, value);
 };
+
+var assertNotSymbol = function assertNotSymbol(value) {
+  if (isSymbol(value)) {
+    throw new TypeError(ERROR_MESSAGE);
+  }
+
+  return value;
+};
+
+var parseBase = function parseBase(value, radix) {
+  return $parseInt(pStrSlice.call(value, testCharsCount), radix);
+};
+
+var parseString = function parseString(toNum, value) {
+  if (isBinary(value)) {
+    return toNum(parseBase(value, binaryRadix));
+  }
+
+  if (isOctal(value)) {
+    return toNum(parseBase(value, octalRadix));
+  }
+
+  return null;
+};
+
+var convertString = function convertString(toNum, value) {
+  var val = parseString(toNum, value);
+
+  if (val !== null) {
+    return val;
+  }
+
+  if (hasNonWS(value) || isInvalidHexLiteral(value)) {
+    return NAN;
+  }
+
+  var trimmed = trim(value);
+
+  if (trimmed !== value) {
+    return toNum(trimmed);
+  }
+
+  return null;
+};
 /**
- * This method converts argument to a value of type Number. (ES2018).
+ * This method converts argument to a value of type Number. (ES2019).
  *
  * @param {*} [argument] - The argument to convert to a number.
  * @throws {TypeError} - If argument is a Symbol or not coercible.
@@ -46,29 +90,13 @@ var isInvalidHexLiteral = function _isInvalidHexLiteral(value) {
 
 
 var toNumber = function toNumber(argument) {
-  var value = toPrimitive(argument, castNumber);
-
-  if (isSymbol(value)) {
-    throw new TypeError(ERROR_MESSAGE);
-  }
+  var value = assertNotSymbol(toPrimitive(argument, castNumber));
 
   if (typeof value === 'string') {
-    if (isBinary(value)) {
-      return toNumber($parseInt(pStrSlice.call(value, testCharsCount), binaryRadix));
-    }
+    var val = convertString(toNumber, value);
 
-    if (isOctal(value)) {
-      return toNumber($parseInt(pStrSlice.call(value, testCharsCount), octalRadix));
-    }
-
-    if (hasNonWS2018(value) || isInvalidHexLiteral(value)) {
-      return NAN;
-    }
-
-    var trimmed = trim(value);
-
-    if (trimmed !== value) {
-      return toNumber(trimmed);
+    if (val !== null) {
+      return val;
     }
   }
 
