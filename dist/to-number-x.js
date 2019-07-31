@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-07-31T19:32:54.121Z",
+  "date": "2019-07-31T22:04:38.224Z",
   "describe": "",
   "description": "Converts argument to a value of type Number.",
   "file": "to-number-x.js",
-  "hash": "5c895104d6e31871316f",
+  "hash": "da3c2a95a086db1d8d59",
   "license": "MIT",
-  "version": "3.0.28"
+  "version": "3.0.29"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -940,10 +940,6 @@ var replace_comments_x_esm_replaceComments = function replaceComments(string, re
 
 
 // CONCATENATED MODULE: ./node_modules/is-function-x/dist/is-function-x.esm.js
-var is_function_x_esm_this = undefined;
-
-function is_function_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !== boundThis) { throw new TypeError("Cannot instantiate an arrow function"); } }
-
 
 
 
@@ -952,7 +948,6 @@ function is_function_x_esm_newArrowCheck(innerThis, boundThis) { if (innerThis !
 
 
 var FunctionCtr = attempt_x_esm.constructor;
-var castBoolean = true.constructor;
 var is_function_x_esm_SPACE = ' ';
 var fToString = attempt_x_esm.toString;
 var funcTag = '[object Function]';
@@ -960,19 +955,17 @@ var genTag = '[object GeneratorFunction]';
 var asyncTag = '[object AsyncFunction]';
 var ctrRx = /^class /;
 var test = ctrRx.test;
-var hasNativeClass = attempt_x_esm(function () {
-  is_function_x_esm_newArrowCheck(this, is_function_x_esm_this);
-
+var hasNativeClass = attempt_x_esm(function attemptee() {
   /* eslint-disable-next-line babel/new-cap */
   return FunctionCtr('"use strict"; return class My {};')();
-}.bind(undefined)).threw === false;
+}).threw === false;
 
-var testClassstring = function _testClassstring(value) {
+var is_function_x_esm_testClassString = function testClassString(value) {
   return test.call(ctrRx, normalize_space_x_esm(replace_comments_x_esm(fToString.call(value), is_function_x_esm_SPACE)));
 };
 
 var isES6ClassFn = function isES6ClassFunc(value) {
-  var result = attempt_x_esm(testClassstring, value);
+  var result = attempt_x_esm(is_function_x_esm_testClassString, value);
   return result.threw === false && result.value;
 };
 /**
@@ -993,6 +986,11 @@ var tryFuncToString = function funcToString(value, allowClass) {
 
   return attempt_x_esm.call(value, fToString).threw === false;
 };
+
+var is_function_x_esm_compareTags = function compareTags(value) {
+  var strTag = to_string_tag_x_esm(value);
+  return strTag === funcTag || strTag === genTag || strTag === asyncTag;
+};
 /**
  * Checks if `value` is classified as a `Function` object.
  *
@@ -1012,12 +1010,11 @@ var is_function_x_esm_isFunction = function isFunction(value, allowClass) {
     return tryFuncToString(value, to_boolean_x_esm(allowClass));
   }
 
-  if (hasNativeClass && castBoolean(allowClass) === false && isES6ClassFn(value)) {
+  if (hasNativeClass && to_boolean_x_esm(allowClass) === false && isES6ClassFn(value)) {
     return false;
   }
 
-  var strTag = to_string_tag_x_esm(value);
-  return strTag === funcTag || strTag === genTag || strTag === asyncTag;
+  return is_function_x_esm_compareTags(value);
 };
 
 /* harmony default export */ var is_function_x_esm = (is_function_x_esm_isFunction);
@@ -1039,11 +1036,7 @@ var UNDEFINED = void ZERO;
 var NUMBER = 'number';
 var STRING = 'string';
 var DEFAULT = 'default';
-/** @type {StringConstructor} */
-
 var StringCtr = STRING.constructor;
-/** @type {NumberConstructor} */
-
 var NumberCtr = ZERO.constructor;
 /* eslint-disable-next-line compat/compat */
 
@@ -1054,19 +1047,24 @@ var symValueOf = has_symbol_support_x_esm && Symbol.prototype.valueOf;
 var toStringOrder = ['toString', 'valueOf'];
 var toNumberOrder = ['valueOf', 'toString'];
 var orderLength = 2;
+
+var assertHint = function assertHint(hint) {
+  if (typeof hint !== 'string' || hint !== NUMBER && hint !== STRING) {
+    throw new TypeError('hint must be "string" or "number"');
+  }
+
+  return hint;
+};
 /**
  * @param {*} ordinary - The ordinary to convert.
  * @param {*} hint - The hint.
  * @returns {*} - The primitive.
  */
 
-var ordinaryToPrimitive = function _ordinaryToPrimitive(ordinary, hint) {
+
+var to_primitive_x_esm_ordinaryToPrimitive = function ordinaryToPrimitive(ordinary, hint) {
   require_object_coercible_x_esm(ordinary);
-
-  if (typeof hint !== 'string' || hint !== NUMBER && hint !== STRING) {
-    throw new TypeError('hint must be "string" or "number"');
-  }
-
+  assertHint(hint);
   var methodNames = hint === STRING ? toStringOrder : toNumberOrder;
   var method;
   var result;
@@ -1092,7 +1090,7 @@ var ordinaryToPrimitive = function _ordinaryToPrimitive(ordinary, hint) {
  */
 
 
-var getMethod = function _getMethod(object, property) {
+var to_primitive_x_esm_getMethod = function getMethod(object, property) {
   var func = object[property];
 
   if (is_nil_x_esm(func) === false) {
@@ -1138,7 +1136,7 @@ var getHint = function getHint(value, supplied) {
 var to_primitive_x_esm_getExoticToPrim = function getExoticToPrim(value) {
   if (has_symbol_support_x_esm) {
     if (symToPrimitive) {
-      return getMethod(value, symToPrimitive);
+      return to_primitive_x_esm_getMethod(value, symToPrimitive);
     }
 
     if (is_symbol_default()(value)) {
@@ -1147,6 +1145,24 @@ var to_primitive_x_esm_getExoticToPrim = function getExoticToPrim(value) {
   }
 
   return UNDEFINED;
+};
+
+var to_primitive_x_esm_evalExotic = function evalExotic(obj) {
+  var exoticToPrim = obj.exoticToPrim,
+      input = obj.input,
+      hint = obj.hint;
+  var result = exoticToPrim.call(input, hint);
+
+  if (is_primitive_default()(result)) {
+    return result;
+  }
+
+  throw new TypeError('unable to convert exotic object to primitive');
+};
+
+var to_primitive_x_esm_evalPrimitive = function evalPrimitive(input, hint) {
+  var newHint = hint === DEFAULT && (is_date_object_default()(input) || is_symbol_default()(input)) ? STRING : hint;
+  return to_primitive_x_esm_ordinaryToPrimitive(input, newHint === DEFAULT ? NUMBER : newHint);
 };
 /**
  * This method converts a JavaScript object to a primitive value.
@@ -1158,7 +1174,7 @@ var to_primitive_x_esm_getExoticToPrim = function getExoticToPrim(value) {
  * were String.
  *
  * @param {*} input - The input to convert.
- * @param {NumberConstructor|StringConstructor} [preferredType] - The preferred type (String or Number).
+ * @param {Function} [preferredType] - The preferred type (String or Number).
  * @throws {TypeError} If unable to convert input to a primitive.
  * @returns {string|number} The converted input as a primitive.
  * @see {http://www.ecma-international.org/ecma-262/6.0/#sec-toprimitive}
@@ -1172,19 +1188,11 @@ var to_primitive_x_esm_toPrimitive = function toPrimitive(input, preferredType) 
 
   var hint = getHint(preferredType, arguments.length > ONE);
   var exoticToPrim = to_primitive_x_esm_getExoticToPrim(input);
-
-  if (typeof exoticToPrim !== 'undefined') {
-    var result = exoticToPrim.call(input, hint);
-
-    if (is_primitive_default()(result)) {
-      return result;
-    }
-
-    throw new TypeError('unable to convert exotic object to primitive');
-  }
-
-  var newHint = hint === DEFAULT && (is_date_object_default()(input) || is_symbol_default()(input)) ? STRING : hint;
-  return ordinaryToPrimitive(input, newHint === DEFAULT ? NUMBER : newHint);
+  return typeof exoticToPrim === 'undefined' ? to_primitive_x_esm_evalPrimitive(input, hint) : to_primitive_x_esm_evalExotic({
+    exoticToPrim: exoticToPrim,
+    input: input,
+    hint: hint
+  });
 };
 
 /* harmony default export */ var to_primitive_x_esm = (to_primitive_x_esm_toPrimitive);
