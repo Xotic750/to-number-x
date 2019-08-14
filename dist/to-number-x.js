@@ -2,13 +2,13 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-14T13:52:24.559Z",
+  "date": "2019-08-14T14:46:36.144Z",
   "describe": "",
   "description": "Converts argument to a value of type Number.",
   "file": "to-number-x.js",
   "hash": "0284af3a71b907d435fa",
   "license": "MIT",
-  "version": "3.1.0"
+  "version": "3.2.0"
 }
 */
 (function webpackUniversalModuleDefinition(root, factory) {
