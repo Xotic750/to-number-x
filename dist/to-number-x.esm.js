@@ -3,38 +3,39 @@ import toPrimitive from 'to-primitive-x';
 import trim from 'trim-x';
 import $parseInt from 'parse-int-x';
 import NAN from 'nan-x';
+import methodize from 'simple-methodize-x';
 var binaryRadix = 2;
 var octalRadix = 8;
 var testCharsCount = 2;
 var ERROR_MESSAGE = 'Cannot convert a Symbol value to a number';
 var castNumber = testCharsCount.constructor;
-var pStrSlice = ERROR_MESSAGE.slice;
+var methodizedStringSlice = methodize(ERROR_MESSAGE.slice);
 var binaryRegex = /^0b[01]+$/i;
 var RegExpConstructor = binaryRegex.constructor; // Note that in IE 8, RegExp.prototype.test doesn't seem to exist: ie, "test" is
 // an own property of regexes. wtf.
 
-var test = binaryRegex.test;
+var methodizedTest = methodize(binaryRegex.test);
 
 var isBinary = function isBinary(value) {
-  return test.call(binaryRegex, value);
+  return methodizedTest(binaryRegex, value);
 };
 
 var octalRegex = /^0o[0-7]+$/i;
 
 var isOctal = function isOctal(value) {
-  return test.call(octalRegex, value);
+  return methodizedTest(octalRegex, value);
 };
 
 var nonWSregex = new RegExpConstructor("[\x85\u180E\u200B\uFFFE]", 'g');
 
 var hasNonWS = function hasNonWS(value) {
-  return test.call(nonWSregex, value);
+  return methodizedTest(nonWSregex, value);
 };
 
 var invalidHexLiteral = /^[-+]0x[0-9a-f]+$/i;
 
 var isInvalidHexLiteral = function isInvalidHexLiteral(value) {
-  return test.call(invalidHexLiteral, value);
+  return methodizedTest(invalidHexLiteral, value);
 };
 
 var assertNotSymbol = function assertNotSymbol(value) {
@@ -46,7 +47,7 @@ var assertNotSymbol = function assertNotSymbol(value) {
 };
 
 var parseBase = function parseBase(value, radix) {
-  return $parseInt(pStrSlice.call(value, testCharsCount), radix);
+  return $parseInt(methodizedStringSlice(value, testCharsCount), radix);
 };
 
 var parseString = function parseString(toNum, value) {
