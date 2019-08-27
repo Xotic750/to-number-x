@@ -2,7 +2,7 @@
 {
   "author": "Graham Fairweather",
   "copywrite": "Copyright (c) 2017",
-  "date": "2019-08-20T19:17:40.588Z",
+  "date": "2019-08-27T20:00:07.763Z",
   "describe": "",
   "description": "Converts argument to a value of type Number.",
   "file": "to-number-x.js",
